@@ -1,7 +1,7 @@
 # deployProgApp
-a) ELBAZ Jonathan - Pierre BONNET
-b) ST2SAS SE1
-c) os : unbuntu 20 and windows 11
+a) ELBAZ Jonathan - Pierre BONNET\n
+b) ST2SAS SE1\n
+c) os : unbuntu 20 and windows 11\n
    hypervisor : vagrant for Windows users
    Docker : Docker version 20.10.17
 d) images used : mysql:latest and openjdk
