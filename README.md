@@ -1,5 +1,5 @@
 # deployProgApp
-1. ELBAZ Jonathan - Pierre BONNET<br />
+a) ELBAZ Jonathan - Pierre BONNET<br />
 b) ST2SAS SE1<br />
 c) os : unbuntu 20 and windows 11<br />
    hypervisor : vagrant for Windows users<br />
