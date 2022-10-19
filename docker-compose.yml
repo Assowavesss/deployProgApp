@@ -1,0 +1,28 @@
+version : '3'
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: 'dblab4'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./ProgApp.sql:/docker-entrypoint-initdb.d/ProgApp.sql
+      - dbdata:/var/lib/mysql
+  myapp:
+    container_name: myapp
+    restart: on-failure
+    environment:
+      WAIT_HOSTS: mysql:3306
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mysql
+    build: .
+volumes:
+  dbdata:
+
