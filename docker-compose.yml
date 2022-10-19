@@ -1,28 +1,45 @@
-version : '3'
+version : '3.6'
+#defining services
 services:
-  mysql:
+  sql: #the first service name
     image: mysql:latest
     container_name: mysql
     restart: always
+    #The mysql_native_password authentication plugin is the default authentication plugin 
+    #that will be used for an account created when no authentication plugin is explicitly mentioned and old_passwords=0 is set.
     command: --default-authentication-plugin=mysql_native_password
+    #setting up database
     environment:
       MYSQL_DATABASE: 'dblab4'
       MYSQL_ROOT_PASSWORD: 'root'
+    #the first port is the host part and the second the port of container
     ports:
       - "3306:3306"
+    expose:
+      - 3306
     volumes:
+    #init the database with script ProgApp.sql
       - ./ProgApp.sql:/docker-entrypoint-initdb.d/ProgApp.sql
+    #defining data volume name to make data persistent and attached to mysql container on /var/lib/mysql
       - dbdata:/var/lib/mysql
-  myapp:
+    networks:
+      - MyAppNetworks
+  app:
     container_name: myapp
     restart: on-failure
     environment:
-      WAIT_HOSTS: mysql:3306
+      - WAIT_HOSTS=mysql:3306
     ports:
       - "8082:8082"
-    depends_on:
-      - mysql
-    build: .
+    depends_on: #ensure mysql start before this container
+      - sql
+    build: 
+      context: . #see Dockerfile
+    networks:
+      - MyAppNetworks
 volumes:
   dbdata:
+  
+networks:
+  MyAppNetworks:
 
